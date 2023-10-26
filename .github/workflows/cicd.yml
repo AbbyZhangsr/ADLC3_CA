@@ -39,23 +39,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      -name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_MESSAGE: 'failed trivy scan, author: Zhang Shengrong'
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_USERNAME: Zhangshengrong
-
-      - name: Upload file to Slack
-        if: failure()
-        uses: MeilCli/slack-upload-file@v3
-        with:
-          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
-          file_path: 'output.txt'
-          initial_comment: 'post by slack-upload-file'    
+  
 
       - name: Build and push
         if: success()
@@ -63,7 +47,7 @@ jobs:
         with:
           push: true
           tags: abbyzhangsr/cicd:${{ github.sha }}
-      
+
       - name: cosign-installer
         if: success()
         uses: sigstore/cosign-installer@v3.1.2    
