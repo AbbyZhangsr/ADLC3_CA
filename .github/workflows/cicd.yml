@@ -21,7 +21,7 @@ jobs:
           ignore-unfixed: true
           format: 'table'
           output: 'output.txt'
-          severity: 'CRITICAL'
+          severity: 'CRITICAL,HIGH'
           exit-code: 1
 
       - name: Slack Notification
