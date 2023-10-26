@@ -50,6 +50,7 @@ jobs:
         uses: sigstore/cosign-installer@v3.1.2    
 
       - name: Sign image with a key
+        if: success()
         run: |
           cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${TAGS}@${DIGEST}"
         env:
