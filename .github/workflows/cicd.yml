@@ -44,3 +44,8 @@ jobs:
         with:
           push: true
           tags: abbyzhangsr/cicd:${{ github.sha }}
+      
+      - 
+        name: cosign-installer
+        if: success()
+        uses: sigstore/cosign-installer@v3.1.2    
