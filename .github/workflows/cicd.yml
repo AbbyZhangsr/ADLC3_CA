@@ -32,6 +32,15 @@ jobs:
           SLACK_MESSAGE: 'failed trivy scan, author: Zhang Shengrong'
           SLACK_COLOR: ${{ job.status }}
           SLACK_USERNAME: Zhangshengrong
+      
+      - name: Upload file to Slack
+        if: failure()
+        uses: MeilCli/slack-upload-file@v3
+        with:
+          slack_token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel_id: ${{ secrets.SLACK_CHANNEL_ID }}
+          file_path: 'output.txt'
+          initial_comment: 'post by slack-upload-file'  
 
       - name: Set up QEMU
         if: success()
